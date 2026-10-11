@@ -1,0 +1,71 @@
+{
+  "name": "parisil",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "desktop": "npm run build && env -u ELECTRON_RUN_AS_NODE electron --no-sandbox .",
+    "desktop:dev": "env -u ELECTRON_RUN_AS_NODE PARISIL_DEV_URL=http://localhost:5173 electron --no-sandbox .",
+    "dist": "npm run build && electron-builder --linux deb AppImage"
+  },
+  "devDependencies": {
+    "@foxglove/rosmsg": "^5.0.5",
+    "@foxglove/rosmsg2-serialization": "^3.1.2",
+    "@mcap/core": "^2.3.0",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "dockview-react": "^8.5.1",
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3",
+    "fzstd": "^0.1.1",
+    "lz4js": "^0.2.0",
+    "oxlint": "^1.81.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0",
+    "zustand": "^5.0.15"
+  },
+  "description": "ROS 2 debugging tool: plots, logs, diagnostics and introspection",
+  "author": {
+    "name": "dinesh",
+    "email": "ydkishore30@gmail.com"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "dev.parisil.app",
+    "productName": "parisil",
+    "files": [
+      "dist/**",
+      "electron/**",
+      "build/icon.png"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "category": "Development",
+      "icon": "build/icon.png",
+      "synopsis": "ROS 2 debugging tool",
+      "description": "Time-series plots, logs, diagnostics and system introspection for ROS 2 in one window."
+    },
+    "artifactName": "parisil-${version}-${arch}.${ext}",
+    "deb": {
+      "recommends": [
+        "ros-jazzy-foxglove-bridge | ros-humble-foxglove-bridge | ros-kilted-foxglove-bridge | ros-lyrical-foxglove-bridge | ros-rolling-foxglove-bridge"
+      ]
+    }
+  },
+  "homepage": "https://github.com/ydkishore30/parisil",
+  "license": "MIT"
+}
